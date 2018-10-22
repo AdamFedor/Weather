@@ -14,8 +14,7 @@ dateStamp();
 
 //IS DATE DUPLICATE
 const dateDup = (addressRequested) => {
-    console.log(addressRequested);
-    if (addressRequested.length === 5) {
+    if (addressRequested.toString().length === 5) {
         var thisDate = dateStamp();
         var sourceData = pullData();
         var sourceDup = checkDuplicates(thisDate, sourceData, addressRequested);
@@ -89,7 +88,6 @@ var removeAll = () => {
 
 //DISPLAY TODAY
 var displayToday = (sourceData) => {
-    console.log('Display Today Only');
     var todayArray = [];
     todayArray.push(sourceData.summary[0]);
     todayArray.push(sourceData.temperatureHigh[0]);

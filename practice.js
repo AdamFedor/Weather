@@ -37,23 +37,23 @@ var command = argv._[0];
 if (command === 'today'){
     //TODAYS WEATHER
     console.log('========================');
-    // ADD A CALLBACK TO WEATHERCALL - THAT WILL MAKE THE REST WAIT
-    var duplicateResponse = processData.dateDup(argv.zipCode);
-    console.log(duplicateResponse);
-    weather.weatherCall(argv.zipCode);
-    // var doIt = () => {
-    //     var readOne = processData.findOne(processData.dateStamp());
-    //     processData.displayToday(readOne);
-    //     console.log('========================');
-    // }
-    // setTimeout(doIt, 1500);
+    var something = () => {
+        let theDate = processData.dateStamp();
+        let theData = processData.findOne(theDate);
+        let dispToday = processData.displayToday(theData);
+        console.log('========================');
+    };
+    weather.weatherCall(argv.zipCode,something);
 } else if (command === 'forecast') {
     //WEEKS WEATHER
     console.log('========================');
-    // processData.newData();
-    // var readOne = processData.findOne(processData.dateStamp());
-    // processData.displayAll(readOne);
-    console.log('========================');
+    var something = () => {
+        let theDate = processData.dateStamp();
+        let theData = processData.findOne(theDate);
+        console.log(theData);
+        console.log('========================');
+    };
+    weather.weatherCall(argv.zipCode,something);
 } else if (command === 'list') {
     //LIST DATES OF CACHE
     var listAll = processData.findAllDates(argv.date, argv.timing);

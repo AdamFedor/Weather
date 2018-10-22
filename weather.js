@@ -8,7 +8,7 @@ const keyGeo = process.env.WEATHERKEY;
 const keyDark = process.env.DARKSKY;
 
 //WEATHER CALL
-var weatherCall = (addressRequested) => {
+var weatherCall = (addressRequested,callback) => {
     var thisDate = processData.dateStamp();
     //CHECK IF DUP
     var sourceData = processData.pullData();
@@ -18,6 +18,7 @@ var weatherCall = (addressRequested) => {
 // add validation on zip code as well
 
         console.log('Entry already cached');
+        callback();
         return;
     } else {
         //PULL NEW DATA
@@ -28,7 +29,6 @@ var weatherCall = (addressRequested) => {
             if (response.data.status === 'ZERO RESULTS') {
                 throw new Error('Unable to find address');
             };
-            console.log('got here');///////////////////////////////////////
             var lat = response.data.results[0].geometry.location.lat;
             var lng = response.data.results[0].geometry.location.lng;
             storeIt.push(response.data.results[0].address_components[0].short_name);
@@ -69,6 +69,7 @@ var weatherCall = (addressRequested) => {
             sourceData.push(darkSkyObject);
             processData.pushData(sourceData);
             console.log('New entry cached');
+            callback();
         }).catch((e) => {
         //ERROR HANDLING
             if (e.code === 'ENOTFOUND') {
